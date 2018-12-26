@@ -25,7 +25,7 @@ app.post('/Todos', (req, res) => {
 
 app.get('/Todos', (req, res) => { 
   Todos.find().then((doc) => { 
-    res.send({Todo : doc});
+    res.send({Todos : doc});
   }) 
 } , (err) => { 
   res.send(err);     
@@ -36,11 +36,11 @@ app.get('/Todos/:id', (req, res) => {
   if(!ObjectID.isValid(id)) { 
     return res.status(404).send();
   } 
-  Todos.findById(id).then((todo) => { 
-    if(!todo){ 
+  Todos.findById(id).then((Todo) => { 
+    if(!Todo){ 
       return res.status(404).send();
     } 
-      return res.send({todo});
+      return res.send({Todo});
   }).catch((e) => {res.status(400).send()});
 });
 
