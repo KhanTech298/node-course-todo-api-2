@@ -9,7 +9,8 @@ let Todos = mongoose.model('Todos', {
     default : false
   }, 
   completedAt : {  
-    type : Number
+    type : Number, 
+    default : null
   }
 });  
 module.exports = {Todos};

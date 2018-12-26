@@ -8,7 +8,8 @@ let bodyParser = require('body-parser');
 
 let app = express();
  
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
+
 app.post('/Todos', (req, res) => { 
   let Todo = new Todos({ 
     text : req.body.text
@@ -19,7 +20,16 @@ app.post('/Todos', (req, res) => {
       res.status(400).send(e);
     }) 
    // console.log(req.body);
-});
+}); 
+
+app.get('/Todos', (req, res) => { 
+  Todos.find().then((doc) => { 
+    res.send({Todo : doc});
+  }) 
+} , (err) => { 
+  res.send(err);     
+}); 
+
 app.listen(3000, ()=> { 
 console.log('Started on port 3000');
 }); 
