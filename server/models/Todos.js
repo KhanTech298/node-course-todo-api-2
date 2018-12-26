@@ -1,10 +1,12 @@
 let mongoose = require('mongoose'); 
-var Todos = mongoose.model('Todos', { 
+let Todos = mongoose.model('Todos', { 
   text : {  
-    type : String 
+    type : String,  
+    required : true
   }, 
   completed : { 
-    type : Boolean 
+    type : Boolean, 
+    default : false
   }, 
   completedAt : {  
     type : Number
