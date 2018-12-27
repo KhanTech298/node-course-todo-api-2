@@ -8,7 +8,7 @@ let express = require('express');
 let bodyParser = require('body-parser'); 
 
 let app = express();
- 
+let port = process.env.PORT || 3000; 
 app.use(bodyParser.json()); 
 
 app.post('/Todos', (req, res) => { 
@@ -44,7 +44,22 @@ app.get('/Todos/:id', (req, res) => {
   }).catch((e) => {res.status(400).send()});
 });
 
-app.listen(3000, ()=> { 
-console.log('Started on port 3000');
+app.delete('/Todos/:id', (req, res) => {
+ let id = req.params.id; 
+    if(!ObjectID.isValid(id)){ 
+      return res.status(404).send();
+    } 
+    
+    Todos.findByIdAndRemove(id).then((doc) => { 
+      if(!doc) { 
+        return res.status(404).send();
+      }  
+        res.send(doc);
+        
+    }).catch((err) => {res.status(400).send()});
+})
+
+app.listen(port, ()=> { 
+console.log(`Started on port ${port}`);
 }); 
 module.exports = {app};
